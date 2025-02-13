@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Be My Valentine? 💖</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: url('https://www.transparenttextures.com/patterns/rose-petals.png'), linear-gradient(to right, #ff758c, #ff7eb3);
+      background-size: cover;
+      background-attachment: fixed;
+      color: white;
+      padding: 50px;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    
+    .container {
+      max-width: 600px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      font-size: 2em;
+    }
+
+    .message {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+
+    .photo {
+      width: 250px;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      margin-bottom: 20px;
+    }
+
+    .buttons {
+      margin-top: 20px;
+      position: relative;
+      width: 100%;
+      height: 80px;
+    }
+
+    button {
+      font-size: 1.2em;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      position: absolute;
+    }
+
+    .yes {
+      background-color: #ff4d79;
+      color: white;
+      transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+      left: 30%;
+      transform: translateX(-50%);
+    }
+
+    .yes:hover {
+      transform: translateX(-50%) scale(1.1);
+      background-color: #ff3366;
+    }
+
+    .no {
+      background-color: #ffffff;
+      color: #ff4d79;
+      transition: all 0.3s ease-in-out;
+      left: 70%;
+      user-select: none;
+    }
+
+    .tooltip {
+      position: absolute;
+      background: rgba(0, 0, 0, 0.75);
+      color: white;
+      padding: 5px 10px;
+      font-size: 0.9em;
+      border-radius: 5px;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translate(-50%, -120%);
+      transition: opacity 0.3s ease-in-out;
+      pointer-events: none;
+    }
+
+    .tooltip.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>💌 Hey baby, 💌</h1>
+    <p class="message">
+      I was going to write you a long love letter, but then I thought… why not go all out and make a whole webpage instead? 💻💖  
+      <br><br>  
+      So here we are—just you, me, and one *very* important question...
+    </p>
+
+    <!-- Image Display -->
+    <img src="me-and-k.jpeg" alt="Us Together" class="photo">
+
+    <h2>Will you be my Valentine? 🌹💘</h2>
+    <p>
+      <em>
+        (Remember when I said girls love the opportunity to say no? Well… here’s your chance—or at least, it was! 😏😂  
+        Clicking *"Yes"* is highly recommended. Clicking *"No"* would be a *wild* decision, but hey… good luck trying. 😭😂)
+      </em>
+    </p>
+
+    <div class="buttons">
+      <button class="yes" onclick="celebrate()">Yes</button>
+      <button class="no" onmouseover="moveButton()" ontouchstart="moveButton()">No</button>
+      <div class="tooltip" id="tooltip">Nice try! 😆</div>
+    </div>
+
+    <p>With love,</p>
+    <p class="signature">KD ❤</p>
+  </div>
+
+  <script>
+    function moveButton() {
+      const noButton = document.querySelector(".no");
+      const tooltip = document.querySelector("#tooltip");
+
+      const funnyTexts = [
+        "Nice try! 😆",
+        "Come on now... 😂",
+        "You don’t mean that! 😏",
+        "Just say yes already! 😘",
+        "Are you really trying to run? 🏃‍♀💨"
+      ];
+      
+      tooltip.innerText = funnyTexts[Math.floor(Math.random() * funnyTexts.length)];
+
+      const buttonRect = noButton.getBoundingClientRect();
+      tooltip.style.left = `${buttonRect.left + buttonRect.width / 2}px`;
+      tooltip.style.top = `${buttonRect.top - 10}px`;
+
+      tooltip.classList.add("show");
+
+      const buttonsContainer = document.querySelector(".buttons");
+      const containerRect = buttonsContainer.getBoundingClientRect();
+      const noButtonRect = noButton.getBoundingClientRect();
+
+      let x, y;
+      do {
+        x = Math.random() * (containerRect.width - noButtonRect.width);
+        y = Math.random() * (containerRect.height - noButtonRect.height);
+      } while (x < containerRect.width * 0.3 && y < containerRect.height * 0.5);
+
+      noButton.style.left = `${x}px`;
+      noButton.style.top = `${y}px`;
+
+      setTimeout(() => {
+        tooltip.classList.remove("show");
+      }, 1000);
+    }
+
+    function celebrate() {
+      document.body.innerHTML = `
+        <div style="text-align: center; padding: 20px;">
+          <h1>YAY! 🥰</h1>
+          <p>You just made me the happiest person! Can't wait to celebrate with you. ❤</p>
+          <br>
+          <img 
+            src="me-and-k.jpeg" 
+            alt="A romantic moment of us together" 
+            style="width: 30%; max-height: 200px; border-radius: 10px; object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.2);"
+          >
+          <p><a href="#" onclick="location.reload()">Go back</a></p>
+        </div>
+      `;
+    }
+  </script>
+
+</body>
+</html>
